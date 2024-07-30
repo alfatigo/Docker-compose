@@ -1,0 +1,35 @@
+version: "3.9"
+  
+services:
+  scheduler:
+    build: scheduler/.
+    ports:
+      - "8989:80"
+    depens_on:
+      - database
+    profiles:
+      - scheduler_services  
+  storefront:
+    ports:
+      - "7575:80"
+      - "1443:443"
+    build: storefront/.
+      # context: 
+      # args: 
+      #   - regions=us-east-1
+      #   - alis=0
+      # enviroment:
+      #   - runtime_env=dev
+    depends_on:
+      - database
+      profiles:
+        - storefront_services
+  database:
+    image: "mysql:-latest"
+    env_file:
+      - ./mysql/env_vars
+    volumes:
+      - ./mysql:/docker-entrypoint-initdb.d:ro
+      - kineteco:/var/lib/mysql
+volumes:
+  kineteco:
