@@ -1,17 +1,60 @@
-## 🔧 Servicios
+# KinetEco Compose – Multi-Service Docker Environment
 
-### 🧠 `scheduler`
-- Servicio que escucha en el puerto `8989`.
-- Se construye desde el directorio `./scheduler`.
-- Depende del servicio `database`.
+## Project Description
 
-### 🛍️ `storefront`
-- Servicio frontend expuesto en los puertos `7575` (HTTP) y `1443` (HTTPS).
-- Se construye desde el directorio `./storefront`.
-- Depende del servicio `database`.
+KinetEco Compose is a practical environment designed to deploy a multi-service application using Docker Compose. The project includes a web storefront, a backend scheduler service, and a MySQL database. All components are containerized and configured for local development and testing.
 
-### 🗄️ `database`
-- Contenedor de MySQL basado en la imagen oficial `mysql:latest`.
-- Usa un archivo `.env` con variables de entorno localizado en `./mysql/env_vars`.
-- Monta el volumen persistente `kineteco` para los datos de la base de datos.
-- Ejecuta scripts de inicialización si existen en `./mysql`.
+## Project Structure
+  ```
+  KinetEco-Compose/
+  ├── mysql/
+  │   ├── db.sql
+  │   ├── env.vars
+  │   └── env_vars
+  │
+  ├── scheduler/
+  │   ├── Dockerfile
+  │   ├── index.html
+  │   └── JS, CSS, and image files
+  │
+  ├── storefront/
+  │   ├── Dockerfile
+  │   ├── index.html
+  │   └── product images, styles, and scripts
+  │
+  ├── docker-compose.yaml
+  ├── LICENSE
+  └── README.md
+
+  ```
+
+## Services
+
+### storefront (Frontend)
+- Contains the public-facing web interface of KinetEco.
+- Exposed at http://localhost:7575 and https://localhost:1443.
+- Built from the `storefront/` Dockerfile.
+
+### scheduler (Backend)
+- Represents a backend or scheduling process.
+- Exposed at http://localhost:8989.
+- Built from the `scheduler/` directory.
+
+### database (MySQL)
+- Uses the official `mysql:latest` image.
+- Loads environment variables from `mysql/env_vars`.
+- Uses a named volume `kineteco` for data persistence.
+- Executes any initialization scripts found in the `mysql/` directory.
+
+## How to Run
+
+### 1. Requirements
+
+- Docker: https://docs.docker.com/get-docker/
+- Docker Compose: https://docs.docker.com/compose/
+
+### 2. Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/KinetEco-Compose.git
+cd KinetEco-Compose
